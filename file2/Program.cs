@@ -41,10 +41,10 @@ namespace file2
             using(StreamReader sr = new StreamReader(filename))
             {
                 Console.WriteLine($"Первые 20 символов");
-                for (int i = 1; i <= 20; i++)
+                for (int i = 0; i <= 20; i++)
                 {
                     int charcode = sr.Read();
-                    if (charcode == 0)
+                    if (charcode == -1)
                     {
                         break;
                     }

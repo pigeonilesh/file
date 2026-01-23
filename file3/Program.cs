@@ -34,8 +34,8 @@ namespace file3
             //третий код
             
             Console.WriteLine($"Добавляем данные в конец файла");
-            //
-            //
+            //Второй параметр true дает возможность дополнить текстовый файл
+            //По умолчанию передается false, в таком случае файл перезаписывается
             using(StreamWriter sw = new StreamWriter(filename, true))
             {
                 sw.WriteLine("\n=== Новая запись ===");
@@ -45,7 +45,7 @@ namespace file3
 
                 Console.WriteLine($"Данные успешно добавлены в конец файла");
             }
-            //
+            //Показываем обновленный файл
             using(StreamReader sr = new StreamReader(filename))
             {
                 Console.WriteLine(sr.ReadToEnd());
