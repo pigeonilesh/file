@@ -24,6 +24,30 @@ namespace pr2
                 sw.WriteLine($"[{now.ToString("dd.MM.yyyy")}] Настроение: {nas}/5 - {kom}");
                 Console.WriteLine($"Запись добалена");
             }
+            int kol = 0;
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string line;
+                while ((line = sr.ReadLine())!= null)
+                {
+                    kol++;
+                }
+            }
+            List<string> mas = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    mas.Add(line);
+                }
+            }
+            int koll = 1;
+            for (int i = mas.Count; i > mas.Count-3; i--)
+            {
+                Console.WriteLine($"{koll}. {mas[i-1]}");
+            }
+            mas.Clear();
         }
     }
 }
