@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Web;
 
-namespace pr3
+namespace pr5
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string file = "C:\\Users\\232415\\Desktop\\Покупки.txt";
-            string filed = "C:\\Users\\232415\\Desktop\\Покупкиd.txt";
+            string file = "C:\\Users\\ilyan\\Documents\\Учет_Предметов.txt";
+            string filed = "C:\\Users\\ilyan\\Documents\\Учет_Предметовd.txt";
             if (!File.Exists(file))
             {
                 using (StreamWriter sw = new StreamWriter(file))
@@ -22,14 +21,15 @@ namespace pr3
                 Console.WriteLine($"Файл создан");
             }
             int a = 0;
-            while (a != 5)
+            while (a != 6)
             {
-                Console.WriteLine($"СПИСОК ПОКУПОК");
-                Console.WriteLine($"1. Показать список покупок");
-                Console.WriteLine($"2. Добавить покупку");
-                Console.WriteLine($"3. Отметить покупку выполненной");
-                Console.WriteLine($"4. Очистить список");
-                Console.WriteLine($"5. Выход");
+                Console.WriteLine($"МЕНЮ ПРОГРАММЫ");
+                Console.WriteLine($"1. Показать все предметы и оценки");
+                Console.WriteLine($"2. Добавить новый предмет");
+                Console.WriteLine($"3. Изменить оценку по предмету");
+                Console.WriteLine($"4. Удалить предмет");
+                Console.WriteLine($"5. Посчитать средний балл");
+                Console.WriteLine($"6. Выход");
                 Console.Write($"Выберите действие: ");
                 a = int.Parse(Console.ReadLine());
                 Console.WriteLine();
@@ -44,7 +44,11 @@ namespace pr3
                     case 2:
                         using (StreamWriter sw = new StreamWriter(file, true))
                         {
-                            sw.WriteLine($"[] {Console.ReadLine()}");
+                            Console.WriteLine($"Введите новый предмет");
+                            sw.Write($"{Console.ReadLine().Trim()}=");
+                            Console.WriteLine($"Введите оценку по предмету");
+                            sw.Write($"{Console.ReadLine().Trim()}");
+                            sw.WriteLine($"");
                         }
                         break;
                     case 3:
@@ -57,52 +61,45 @@ namespace pr3
                                 list.Add(line);
                             }
                         }
-                        Console.WriteLine($"Введите совершенную покупку");
-                        string pok = Console.ReadLine();
+                        Console.WriteLine($"Введите предмет чтобы поменять оченку");
+                        string pr = Console.ReadLine();
                         using (StreamReader sr = new StreamReader(file))
                         using (StreamWriter sw = new StreamWriter(filed))
                         {
                             string line;
                             while ((line = sr.ReadLine()) != null)
                             {
-                                string[] s = line.Split(' ');
-                                if (s[1].StartsWith(pok))
+                                string[] s = line.Split('=');
+                                if (s[0].StartsWith(pr))
                                 {
-                                    line = $"[x] {s[1]}";
-                                    Console.WriteLine($"Покупка отмечена");
+                                    line = $"{s[0]}={int.Parse(Console.ReadLine())}";
+                                    Console.WriteLine($"Оценка изменина");
                                 }
                                 sw.WriteLine(line);
                             }
                         }
                         File.Delete(file);
                         File.Move(filed, file);
-                        Console.WriteLine($"Список обновлен");
+                        Console.WriteLine($"Предметы обновлены");
                         using (StreamReader sr = new StreamReader(file))
                         {
                             Console.WriteLine(sr.ReadToEnd());
                         }
                         break;
                     case 4:
-                        using (StreamReader sr = new StreamReader(file))
-                        using (StreamWriter sw = new StreamWriter(filed))
-                        {
-                            string line = sr.ReadToEnd();
-                            line = "";
-                            sw.WriteLine(line);
-                        }
-                        File.Delete(file);
-                        File.Move(filed, file);
-                        Console.WriteLine($"Список очищен");
+
                         break;
                     case 5:
+                        
+                        break;
+                    case 6:
                         Console.WriteLine("Выход из программы.");
                         break;
                     default:
-                        Console.WriteLine("Неверный выбор. Введите число от 1 до 5.");
+                        Console.WriteLine("Неверный выбор. Введите число от 1 до 6");
                         break;
                 }
             }
-            Console.WriteLine();
         }
     }
 }
